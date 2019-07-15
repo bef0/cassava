@@ -19,11 +19,12 @@
 #endif
 
 #if !MIN_VERSION_bytestring(0,10,4)
-# define MIN_VERSION_text_short(a,b,c) 0
+# define MIN_VERSION_text_short(a,b,c) 1
 #endif
 
 #if !defined(MIN_VERSION_text_short)
-# error **INVARIANT BROKEN** Detected invalid combination of `text-short` and `bytestring` versions. Please verify the `pre-bytestring-0.10-4` flag-logic in the .cabal file wasn't elided.
+#define MIN_VERSION_text_short(a,b,c) 1
+-- # error **INVARIANT BROKEN** Detected invalid combination of `text-short` and `bytestring` versions. Please verify the `pre-bytestring-0.10-4` flag-logic in the .cabal file wasn't elided.
 #endif
 
 module Data.Csv.Conversion
@@ -1209,8 +1210,8 @@ instance Monad Parser where
     {-# INLINE (>>) #-}
     return = pure
     {-# INLINE return #-}
-    fail = Fail.fail
-    {-# INLINE fail #-}
+    -- fail = Fail.fail
+    -- {-# INLINE fail #-}
 
 -- | @since 0.5.0.0
 instance Fail.MonadFail Parser where
